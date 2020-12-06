@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         File myObj;
         Scanner myObject = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter file path or name of file in \"input\" folder: ");
+        System.out.println("Enter file path or title of file in \"input\" folder: ");
         String input = myObject.nextLine();
         myObj = new File("input/"+input.toLowerCase().replace(" ", "-")+".txt");  // Read user input
         if (!myObj.exists()) // Checks if file exists in "input" folder

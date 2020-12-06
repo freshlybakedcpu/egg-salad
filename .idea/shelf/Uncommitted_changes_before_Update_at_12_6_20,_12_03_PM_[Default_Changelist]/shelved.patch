@@ -1,0 +1,18 @@
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1607223772310)
++++ target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1607223772310)
+@@ -0,0 +1,1 @@
++/Users/sscpacguest/GitHub/egg-salad/src/main/java/io/github/freshlybakedcpu/egg/Main.java
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(date 1607223772309)
++++ target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(date 1607223772309)
+@@ -0,0 +1,1 @@
++io/github/freshlybakedcpu/egg/Main.class
