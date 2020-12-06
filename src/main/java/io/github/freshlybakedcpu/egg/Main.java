@@ -36,6 +36,16 @@ public class Main {
             // Removes all newline characters.
             content = content.replace("\r\n", " ").replace("\n", " ");
 
+            // Removing chapter headers
+            // regex: (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])
+
+            // Great Expectations: "Chapter I. "
+            content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z]). ", "");
+            // A Tale of Two Cities: "I. "
+            // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z]). ", "");
+            // War and Peace: "CHAPTER I  "
+            content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])  ", "");
+
             // Loading sentence detector model
             InputStream inputStream = new FileInputStream("models/en-sent.bin");
             SentenceModel model = new SentenceModel(inputStream);
