@@ -9,7 +9,7 @@ import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         File myObj;
         // if(!ArrayUtils.isEmpty(arr)) {
         Scanner myObject = new Scanner(System.in);  // Create a Scanner object
@@ -48,18 +48,17 @@ public class Main {
             SentenceDetectorME detector = new SentenceDetectorME(model);
 
             // Detecting the sentence
-            String sentences[] = detector.sentDetect(content);
+            String[] sentences = detector.sentDetect(content);
 
             FileWriter writer = new FileWriter(String.format("output/%s_en-sent.txt", myObj.getName()));
-            for (int i = 0; i < sentences.length; i++) {
-                writer.write(sentences[i] + "\n\n");
+            for (String s : sentences) {
+                writer.write(s + "\n\n");
             }
             writer.close();
         }
         catch(IOException e) {
             System.out.println("Error.");
             e.printStackTrace();
-            return;
         }
     }
 
