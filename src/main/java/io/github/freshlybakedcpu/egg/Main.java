@@ -11,31 +11,27 @@ import opennlp.tools.sentdetect.SentenceModel;
 public class Main {
     public static void main(String[] args) {
         File myObj;
-        // if(!ArrayUtils.isEmpty(arr)) {
         Scanner myObject = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter file path: ");
+        System.out.println("Enter file path or name of file in \"input\" folder: ");
         String input = myObject.nextLine();
-        myObj = new File(input);  // Read user input
-    /*
-    }
-    else {
-      myObj = new File(args[1]);
-    }
-    */
-
+        myObj = new File("input/"+input.toLowerCase().replace(" ", "-")+".txt");  // Read user input
+        if (!myObj.exists()) // Checks if file exists in "input" folder
+            myObj = new File(input);
         if (myObj.exists()) {
+            System.out.println("File path: " + myObj.getAbsolutePath());
             System.out.println("File name: " + myObj.getName());
             System.out.println("Writeable: " + myObj.canWrite());
             System.out.println("Readable: " + myObj.canRead());
             System.out.println("File size in bytes: " + myObj.length());
         } else {
+            System.out.println("Provided file path: " + myObj.getAbsolutePath());
             System.out.println("The file does not exist.");
             return;
         }
 
         try {
             // Turns file into String
-            String content = readFile(input, StandardCharsets.UTF_8);
+            String content = readFile(myObj.getPath(), StandardCharsets.UTF_8);
 
             // Removes all newline characters.
             content = content.replace("\r\n", " ").replace("\n", " ");
@@ -52,7 +48,7 @@ public class Main {
 
             FileWriter writer = new FileWriter(String.format("output/%s_en-sent.txt", myObj.getName()));
             for (String s : sentences) {
-                writer.write(s + "\n\n");
+                writer.write(s + "\n");
             }
             writer.close();
         }
