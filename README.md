@@ -1,2 +1,2 @@
 # egg-salad
-Sentence splitter Java application (using OpenNLP)
+Java sentence splitter application (using OpenNLP)
