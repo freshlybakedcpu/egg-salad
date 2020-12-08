@@ -39,17 +39,18 @@ public class Main {
             // Roman numeral regex: (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])
 
             // Great Expectations: "Chapter I. "
-            // content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z]). ", "");
+            content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", "");
 
             // A Tale of Two Cities: "I. "
-            content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\s+.+\\R", "");
+            content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", "");
 
             // War and Peace: "CHAPTER I  "
-            // content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])  ", "");
+            content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", "");
 
             // Removes all newline characters.
             System.out.println("Removing all newline characters...");
             content = content.replace("\r\n", " ").replace("\n", " ");
+            content = content.trim().replaceAll("\\s+", " "); // Ensures there are no duplicate newline characters.
 
             // Loads sentence detector model
             System.out.println("Loading sentence detector model...");
