@@ -22,7 +22,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8f304bd-7e6c-4b62-9c54-5317063cbd7a" name="Default Changelist" comment="Updated version number, worked on regex to remove chapter headings" />
+    <list default="true" id="f8f304bd-7e6c-4b62-9c54-5317063cbd7a" name="Default Changelist" comment="Updated version number, worked on regex to remove chapter headings">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu/egg/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu/egg/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/freshlybakedcpu/egg/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/freshlybakedcpu/egg/Main.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,9 +62,10 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last.edited.regexp" value="I. The new line&#10;" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -71,8 +78,10 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="io.github.freshlybakedcpu.egg.Main" />
-      <module name="egg-salad" />
+      <module name="egg" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="io.github.freshlybakedcpu.egg.*" />
@@ -206,6 +215,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -225,6 +235,10 @@
       <screen x="0" y="23" width="1440" height="812" />
     </state>
     <state x="459" y="259" key="#Notifications/0.23.1440.812@0.23.1440.812" timestamp="1605250237736" />
+    <state x="0" y="23" width="1024" height="822" key="#Project_Structure" timestamp="1607387342918">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="0" y="23" width="1024" height="822" key="#Project_Structure/0.23.1440.822@0.23.1440.822" timestamp="1607387342918" />
     <state x="184" y="91" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607223766133">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
@@ -247,29 +261,33 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="478" y="306" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.877@0.23.1440.877" timestamp="1607215241438" />
-    <state width="1398" height="260" key="GridCell.Tab.0.bottom" timestamp="1607298931679">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1607388409163">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607388160304" />
     <state width="1398" height="260" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1607298931679" />
-    <state width="1398" height="210" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1607292339866" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1607388409163" />
     <state width="1398" height="210" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1607217519140" />
-    <state width="1398" height="260" key="GridCell.Tab.0.center" timestamp="1607298931678">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1607388409163">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607388160303" />
     <state width="1398" height="260" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1607298931678" />
-    <state width="1398" height="210" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1607292339865" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1607388409163" />
     <state width="1398" height="210" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1607217519139" />
-    <state width="1398" height="260" key="GridCell.Tab.0.left" timestamp="1607298931678">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1607388409162">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607388160303" />
     <state width="1398" height="260" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1607298931678" />
-    <state width="1398" height="210" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1607292339865" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1607388409162" />
     <state width="1398" height="210" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1607217519138" />
-    <state width="1398" height="260" key="GridCell.Tab.0.right" timestamp="1607298931679">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1607388409163">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607388160304" />
     <state width="1398" height="260" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1607298931679" />
-    <state width="1398" height="210" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1607292339865" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1607388409163" />
     <state width="1398" height="210" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1607217519139" />
     <state width="1398" height="260" key="GridCell.Tab.1.bottom" timestamp="1607298931680">
       <screen x="0" y="23" width="1440" height="821" />
@@ -287,12 +305,12 @@
       <screen x="0" y="23" width="1440" height="821" />
     </state>
     <state width="1398" height="260" key="GridCell.Tab.1.right/0.23.1440.821@0.23.1440.821" timestamp="1607298931680" />
-    <state x="208" y="23" width="1007" height="767" key="SettingsEditor" timestamp="1607223743115">
+    <state x="208" y="23" width="1007" height="767" key="SettingsEditor" timestamp="1607387780232">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="208" y="23" key="SettingsEditor/0.23.1440.814@0.23.1440.814" timestamp="1605249545585" />
     <state x="208" y="23" width="1024" height="816" key="SettingsEditor/0.23.1440.816@0.23.1440.816" timestamp="1605233783640" />
-    <state x="208" y="23" width="1024" height="812" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1607223743115" />
+    <state x="208" y="23" width="1024" height="812" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1607387780232" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1605316347527" />
     <state x="243" y="23" width="1007" height="767" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1607214845399" />
     <state x="320" y="161" key="Vcs.Push.Dialog.v2" timestamp="1607298918687">
@@ -309,6 +327,10 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="518" y="351" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.822@0.23.1440.822" timestamp="1607292238542" />
+    <state x="471" y="231" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1607386775377">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="471" y="231" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.23.1440.822@0.23.1440.822" timestamp="1607386775377" />
     <state x="385" y="161" width="670" height="675" key="search.everywhere.popup" timestamp="1605250034521">
       <screen x="0" y="23" width="1440" height="812" />
     </state>

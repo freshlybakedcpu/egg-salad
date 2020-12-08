@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.charset.*;
 import java.util.*;
+import java.util.regex.*;
 
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
@@ -33,34 +34,42 @@ public class Main {
             // Turns file into String
             String content = readFile(myObj.getPath(), StandardCharsets.UTF_8);
 
-            // Removes all newline characters.
-            content = content.replace("\r\n", " ").replace("\n", " ");
-
-            // Removing chapter headers
-            // regex: (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])
+            // Removes chapter headers
+            System.out.println("\nRemoving chapter headers...");
+            // Roman numeral regex: (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])
 
             // Great Expectations: "Chapter I. "
-            content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z]). ", "");
-            // A Tale of Two Cities: "I. "
-            // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z]). ", "");
-            // War and Peace: "CHAPTER I  "
-            content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])  ", "");
+            // content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z]). ", "");
 
-            // Loading sentence detector model
+            // A Tale of Two Cities: "I. "
+            content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\s+.+\\R", "");
+
+            // War and Peace: "CHAPTER I  "
+            // content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])  ", "");
+
+            // Removes all newline characters.
+            System.out.println("Removing all newline characters...");
+            content = content.replace("\r\n", " ").replace("\n", " ");
+
+            // Loads sentence detector model
+            System.out.println("Loading sentence detector model...");
             InputStream inputStream = new FileInputStream("models/en-sent.bin");
             SentenceModel model = new SentenceModel(inputStream);
 
-            // Instantiating the SentenceDetectorME class
+            // Instantiates the SentenceDetectorME class
             SentenceDetectorME detector = new SentenceDetectorME(model);
 
             // Detecting the sentence
+            System.out.println("Beginning sentence detection...");
             String[] sentences = detector.sentDetect(content);
 
+            System.out.println("Writing to file...");
             FileWriter writer = new FileWriter(String.format("output/%s_en-sent.txt", myObj.getName()));
             for (String s : sentences) {
                 writer.write(s + "\n");
             }
             writer.close();
+            System.out.println("Done!");
         }
         catch(IOException e) {
             System.out.println("Error.");
