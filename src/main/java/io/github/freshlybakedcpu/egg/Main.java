@@ -10,12 +10,15 @@ import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 
 public class Main {
+    private String[] samples;
+
     public static void main(String[] args) {
+        // if (Arrays.stream(args).anyMatch(""::equals))
         File myObj;
         Scanner myObject = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter file path or title of file in \"input\" folder: ");
+        System.out.println("Enter file path or title of sample file: ");
         String input = myObject.nextLine();
-        myObj = new File("input/"+input.toLowerCase().replace(" ", "-")+".txt");  // Read user input
+        myObj = new File("samples/" + input.toLowerCase().replace(" ", "-") + ".txt");  // Read user input
         if (!myObj.exists()) // Checks if file exists in "input" folder
             myObj = new File(input);
         if (myObj.exists()) {
@@ -71,16 +74,14 @@ public class Main {
             }
             writer.close();
             System.out.println("Done!");
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Error.");
             e.printStackTrace();
         }
     }
 
     static String readFile(String path, Charset encoding)
-            throws IOException
-    {
+            throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }

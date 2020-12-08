@@ -23,9 +23,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8f304bd-7e6c-4b62-9c54-5317063cbd7a" name="Default Changelist" comment="Updated version number, worked on regex to remove chapter headings">
-      <change afterPath="$PROJECT_DIR$/input/1984.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu/egg/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu/egg/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/github/freshlybakedcpu/egg/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/freshlybakedcpu/egg/Main.class" afterDir="false" />
