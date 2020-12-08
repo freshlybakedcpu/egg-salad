@@ -10,6 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="egg (1)" target="1.8" />
+      <module name="egg (2)" target="1.8" />
       <module name="egg-salad" target="1.8" />
     </bytecodeTargetLevel>
   </component>

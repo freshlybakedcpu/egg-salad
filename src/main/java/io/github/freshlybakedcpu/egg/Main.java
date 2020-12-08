@@ -42,7 +42,7 @@ public class Main {
             content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", "");
 
             // A Tale of Two Cities: "I. "
-            content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", "");
+            // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", "");
 
             // War and Peace: "CHAPTER I  "
             content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", "");
