@@ -10,32 +10,38 @@ import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 
 public class Main {
-    private String[] samples;
+    private static String[] samples;
+    private static String[] supportedFiles = new String[]{"txt", "json"};
 
     public static void main(String[] args) {
         // if (Arrays.stream(args).anyMatch(""::equals))
-        File myObj;
-        Scanner myObject = new Scanner(System.in);  // Create a Scanner object
+        File inputFile;
+        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Enter file path or title of sample file: ");
-        String input = myObject.nextLine();
-        myObj = new File("samples/" + input.toLowerCase().replace(" ", "-") + ".txt");  // Read user input
-        if (!myObj.exists()) // Checks if file exists in "input" folder
-            myObj = new File(input);
-        if (myObj.exists()) {
-            System.out.println("File path: " + myObj.getAbsolutePath());
-            System.out.println("File name: " + myObj.getName());
-            System.out.println("Writeable: " + myObj.canWrite());
-            System.out.println("Readable: " + myObj.canRead());
-            System.out.println("File size in bytes: " + myObj.length());
+        String userInput = scanner.nextLine();
+        inputFile = new File("samples/" + userInput.toLowerCase().replace(" ", "-") + ".txt");  // Read user input
+        if (!inputFile.exists()) // Checks if file exists in "input" folder
+            inputFile = new File(userInput);
+        if (inputFile.exists()) {
+            System.out.println("\nFile path: " + inputFile.getAbsolutePath());
+            System.out.println("File name: " + inputFile.getName());
+            System.out.println("Writeable: " + inputFile.canWrite());
+            System.out.println("Readable: " + inputFile.canRead());
+            System.out.println("File size in bytes: " + inputFile.length());
         } else {
-            System.out.println("Provided file path: " + myObj.getAbsolutePath());
-            System.out.println("The file does not exist.");
+            System.out.println("The provided file path \"" + inputFile.getAbsolutePath() +"\" does not exist.");
             return;
+        }
+        System.out.println("\nWhat file type would you like the data saved in? (Available: " + Arrays.toString(supportedFiles) + ")");
+        String fileType = scanner.nextLine();
+        if(!Arrays.stream(supportedFiles).anyMatch(fileType::equals)) {
+          System.out.println("\nProvided file type \"" + fileType + "\" is not supported.");
+          return;
         }
 
         try {
             // Turns file into String
-            String content = readFile(myObj.getPath(), StandardCharsets.UTF_8);
+            String content = readFile(inputFile.getPath(), StandardCharsets.UTF_8);
 
             // Removes chapter headers
             System.out.println("\nRemoving chapter headers...");
@@ -68,11 +74,33 @@ public class Main {
             String[] sentences = detector.sentDetect(content);
 
             System.out.println("Writing to file...");
-            FileWriter writer = new FileWriter(String.format("output/%s_en-sent.txt", myObj.getName()));
-            for (String s : sentences) {
+            FileWriter writer = new FileWriter(String.format("output/%s_en-sent.%s", inputFile.getName().replaceAll("[.]txt", ""), fileType));
+            if(fileType.equals("txt")) {
+              for (String s : sentences) {
                 writer.write(s + "\n");
+              }
+              writer.close();
             }
-            writer.close();
+            else if(fileType.equals("json")) {
+              writer.write("{\n");
+              writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": [\n");
+              boolean firstTime = true;
+              for (String s : sentences) {
+                if(firstTime) {
+                  writer.write("\t\t\"" + s + "\"");
+                  firstTime = false;
+                }
+                else {
+                  writer.write(",\n\t\t\"" + s + "\"");
+                }
+              }
+              writer.write("\n\t]\n}");
+              writer.close();
+            }
+            else {
+              System.out.println("\nThis shouldn't have happened. Please report this error!\n[Error]: fileType did not meet conditional requirements during file writing.\nfileType = " + fileType);
+              return;
+            }
             System.out.println("Done!");
         } catch (IOException e) {
             System.out.println("Error.");
