@@ -36,6 +36,10 @@
 ehthumbs.db
 Thumbs.db
 
+# Repl.it files #
+######################
+.replit
+
 # Output files #
 ######################
 output/*
