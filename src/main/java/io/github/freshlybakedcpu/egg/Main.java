@@ -116,24 +116,27 @@ public class Main {
                     }
                     writer.close();
                 }
-                /*
                 else if(fileType.equals("json")) {
                     writer.write("{\n");
-                    writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": [\n");
+                    writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": {\n");
                     boolean firstTime = true;
-                    for (String s : sentences) {
-                        if(firstTime) {
-                            writer.write("\t\t\"" + s + "\"");
-                            firstTime = false;
+                    for (int i = 0; i < sentences.length; i++) {
+                        System.out.println("\tChapter " + (i + 1) + "...");
+                        writer.write("\t\t\"chapter" + (i + 1) + "\": [\n");
+                        int sentenceNo = 1;
+                        for (String s : sentences[i]) {
+                            System.out.println("\t\tSentence no. " + sentenceNo);
+                            writer.write("\t\t\t\"" + s + "\"");
+                            if (sentenceNo < sentences[i].length) writer.write(",\n");
+                            else writer.write("\n");
+                            sentenceNo++;
                         }
-                        else {
-                            writer.write(",\n\t\t\"" + s + "\"");
-                        }
+                        if (i + 1 < sentences.length) writer.write("\t\t],\n");
+                        else writer.write("\t\t]\n");
                     }
-                    writer.write("\n\t]\n}");
+                    writer.write("\t}\n}");
                     writer.close();
                 }
-                */
                 else {
                     System.out.println("\nThis shouldn't have happened. Please report this error!\n[Error]: fileType did not meet conditional requirements during file writing.\nfileType = " + fileType);
                     return;
