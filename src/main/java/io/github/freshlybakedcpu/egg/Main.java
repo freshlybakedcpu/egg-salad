@@ -65,6 +65,10 @@ public class Main {
             // Removes underscores
             System.out.println("\nRemoving underscores...");
             content.replace("_", "");
+            
+            // Removes "PREFACE"
+            System.out.println("\nRemoving preface heading...");
+            // content.replaceAll("PREFACE", "");
 
             // Removes chapter headers
             System.out.println("Removing chapter headers...");
@@ -90,6 +94,7 @@ public class Main {
                 // Removes footnotes
                 System.out.println("Removing footnotes...");
                 // machievelli: "[Footnote 1: L'umana probitate: e questo vuole Quei che la dà, perchè da lui si chiami._Purg_. vii. 121-123.]"
+                // Note: Book headings (e.g. BOOK I.) also need to be removed.
                 content = content.replaceAll("\\[Footnote\\s[0-9]+\\s.+\\]\\R", chapterCode);
 
                 // Replaces all normal quotes with curly quotes
