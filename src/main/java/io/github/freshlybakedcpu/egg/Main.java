@@ -32,10 +32,18 @@ public class Main {
             System.out.println("The provided file path \"" + inputFile.getAbsolutePath() +"\" does not exist.");
             return;
         }
-        System.out.println("\nWhat file type would you like the data saved in? (Available: " + Arrays.toString(supportedFiles) + ")");
+        
+        System.out.println("\nWhat file type would you like the data saved in? (Available: " + Arrays.toString(supportedFiles).replace("[", "").replace("]", "") + ")");
         String fileType = scanner.nextLine();
         if(!Arrays.stream(supportedFiles).anyMatch(fileType::equals)) {
           System.out.println("\nProvided file type \"" + fileType + "\" is not supported.");
+          return;
+        }
+        
+        System.out.println("\nWould you like chapter headings? (y/n)");
+        String chapterHeadings = scanner.nextLine();
+        if (!chapterHeadings.matches("y|n")) {
+          System.out.println("\nYour input \"" + chapterHeadings + "\" was not one of the provided options.");
           return;
         }
 
