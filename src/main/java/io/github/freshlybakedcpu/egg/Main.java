@@ -35,18 +35,28 @@ public class Main {
         
         System.out.println("\nWhat file type would you like the data saved in? (Available: " + Arrays.toString(supportedFiles).replace("[", "").replace("]", "") + ")");
         String fileType = scanner.nextLine();
-        if(!Arrays.stream(supportedFiles).anyMatch(fileType::equals)) {
+        if(Arrays.stream(supportedFiles).noneMatch(fileType::equals)) {
           System.out.println("\nProvided file type \"" + fileType + "\" is not supported.");
           return;
         }
         
         System.out.println("\nWould you like chapter headings? (y/n)");
         String chapterHeadings = scanner.nextLine();
-        if (!chapterHeadings.matches("y|n")) {
+        String chapterCode = "";
+        if (!chapterHeadings.matches("[yn]")) {
           System.out.println("\nYour input \"" + chapterHeadings + "\" was not one of the provided options.");
           return;
         }
-
+        else if(chapterHeadings.matches("y")) {
+            // Calculates chapter code
+            System.out.println("\nCalculating unique chapter code...");
+            int[] codePoints = new int[20];
+            for (int i = 0; i < 20; i++) {
+                // codePoints[i] = (int) Math.floor(Math.random() * (126 - 33 + 1)) + 33;
+                codePoints[i] = (int) Math.floor(Math.random() * (90 - 65 + 1)) + 65;
+            }
+            chapterCode = new String(codePoints, 0, codePoints.length);
+        }
         try {
             // Turns file into String
             String content = readFile(inputFile.getPath(), StandardCharsets.UTF_8);
@@ -54,62 +64,144 @@ public class Main {
             // Removes chapter headers
             System.out.println("\nRemoving chapter headers...");
             // Roman numeral regex: (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])
+            if (chapterHeadings.matches("y")) {
+                // Great Expectations: "Chapter I. "
+                content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", chapterCode);
 
-            // Great Expectations: "Chapter I. "
-            content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", "");
+                // A Tale of Two Cities: "I. "
+                // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", chapterCode);
 
-            // A Tale of Two Cities: "I. "
-            // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", "");
+                // War and Peace: "CHAPTER I  "
+                // content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", chapterCode);
 
-            // War and Peace: "CHAPTER I  "
-            content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", "");
+                System.out.println("\nSeparating text by chapter...");
+                String[] textByChapter = content.split(chapterCode);
 
-            // Removes all newline characters.
-            System.out.println("Removing all newline characters...");
-            content = content.replace("\r\n", " ").replace("\n", " ");
-            content = content.trim().replaceAll("\\s+", " "); // Ensures there are no duplicate newline characters.
+                // Loads sentence detector model
+                System.out.println("Loading sentence detector model...");
+                InputStream inputStream = new FileInputStream("models/en-sent.bin");
+                SentenceModel model = new SentenceModel(inputStream);
 
-            // Loads sentence detector model
-            System.out.println("Loading sentence detector model...");
-            InputStream inputStream = new FileInputStream("models/en-sent.bin");
-            SentenceModel model = new SentenceModel(inputStream);
+                // Instantiates the SentenceDetectorME class
+                SentenceDetectorME detector = new SentenceDetectorME(model);
 
-            // Instantiates the SentenceDetectorME class
-            SentenceDetectorME detector = new SentenceDetectorME(model);
+                System.out.println("Removing newline characters and detecting sentences for each chapter (" + (textByChapter.length - 1) + " total)");
+                String[][] sentences = new String[textByChapter.length - 1][];
+                for (int i = 1; i < textByChapter.length; i++) {
+                    System.out.print("\tChapter no." + i + "...");
+                    // Removes all newline characters.
 
-            // Detecting the sentence
-            System.out.println("Beginning sentence detection...");
-            String[] sentences = detector.sentDetect(content);
+                    textByChapter[i] = textByChapter[i].replace("\r\n", " ").replace("\n", " ");
+                    textByChapter[i] = textByChapter[i].trim().replaceAll("\\s+", " "); // Ensures there are no duplicate newline characters.
 
-            System.out.println("Writing to file...");
-            FileWriter writer = new FileWriter(String.format("output/%s_en-sent.%s", inputFile.getName().replaceAll("[.]txt", ""), fileType));
-            if(fileType.equals("txt")) {
-              for (String s : sentences) {
-                writer.write(s + "\n");
-              }
-              writer.close();
+                    // Detecting the sentence
+                    sentences[i-1] = detector.sentDetect(textByChapter[i]);
+                    System.out.println("done!");
+                }
+
+                System.out.println("Writing to file...");
+                FileWriter writer = new FileWriter(String.format("output/%s_en-sent.%s", inputFile.getName().replaceAll("[.]txt", ""), fileType));
+                if(fileType.equals("txt")) {
+                    for(int i = 0; i < sentences.length; i++) {
+                        System.out.println("\tChapter " + (i+1) + "...");
+                        writer.write("Chapter " + (i+1) + "\n");
+                        int sentenceNo = 1;
+                        for (String s : sentences[i]) {
+                            System.out.println("\t\tSentence no. " + sentenceNo);
+                            writer.write(s);
+                            if (sentenceNo < sentences[i].length) writer.write("\n");
+                            sentenceNo++;
+                        }
+                        if (i + 1 < sentences.length) writer.write("\n\n");
+                    }
+                    writer.close();
+                }
+                /*
+                else if(fileType.equals("json")) {
+                    writer.write("{\n");
+                    writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": [\n");
+                    boolean firstTime = true;
+                    for (String s : sentences) {
+                        if(firstTime) {
+                            writer.write("\t\t\"" + s + "\"");
+                            firstTime = false;
+                        }
+                        else {
+                            writer.write(",\n\t\t\"" + s + "\"");
+                        }
+                    }
+                    writer.write("\n\t]\n}");
+                    writer.close();
+                }
+                */
+                else {
+                    System.out.println("\nThis shouldn't have happened. Please report this error!\n[Error]: fileType did not meet conditional requirements during file writing.\nfileType = " + fileType);
+                    return;
+                }
+
+                System.out.println("Done!");
             }
-            else if(fileType.equals("json")) {
-              writer.write("{\n");
-              writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": [\n");
-              boolean firstTime = true;
-              for (String s : sentences) {
-                if(firstTime) {
-                  writer.write("\t\t\"" + s + "\"");
-                  firstTime = false;
+            else if (chapterHeadings.matches("n")) {
+                // Great Expectations: "Chapter I. "
+                content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", "");
+
+                // A Tale of Two Cities: "I. "
+                // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", "");
+
+                // War and Peace: "CHAPTER I  "
+                content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", "");
+
+                // Removes all newline characters.
+                System.out.println("Removing all newline characters...");
+                content = content.replace("\r\n", " ").replace("\n", " ");
+                content = content.trim().replaceAll("\\s+", " "); // Ensures there are no duplicate newline characters.
+
+                // Loads sentence detector model
+                System.out.println("Loading sentence detector model...");
+                InputStream inputStream = new FileInputStream("models/en-sent.bin");
+                SentenceModel model = new SentenceModel(inputStream);
+
+                // Instantiates the SentenceDetectorME class
+                SentenceDetectorME detector = new SentenceDetectorME(model);
+
+                // Detecting the sentence
+                System.out.println("Beginning sentence detection...");
+                String[] sentences = detector.sentDetect(content);
+
+                System.out.println("Writing to file...");
+                FileWriter writer = new FileWriter(String.format("output/%s_en-sent.%s", inputFile.getName().replaceAll("[.]txt", ""), fileType));
+                if(fileType.equals("txt")) {
+                    for (String s : sentences) {
+                        writer.write(s + "\n");
+                    }
+                    writer.close();
+                }
+                else if(fileType.equals("json")) {
+                    writer.write("{\n");
+                    writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": [\n");
+                    boolean firstTime = true;
+                    for (String s : sentences) {
+                        if(firstTime) {
+                            writer.write("\t\t\"" + s + "\"");
+                            firstTime = false;
+                        }
+                        else {
+                            writer.write(",\n\t\t\"" + s + "\"");
+                        }
+                    }
+                    writer.write("\n\t]\n}");
+                    writer.close();
                 }
                 else {
-                  writer.write(",\n\t\t\"" + s + "\"");
+                    System.out.println("\nThis shouldn't have happened. Please report this error!\n[Error]: fileType did not meet conditional requirements during file writing.\nfileType = " + fileType);
+                    return;
                 }
-              }
-              writer.write("\n\t]\n}");
-              writer.close();
+                System.out.println("Done!");
             }
             else {
-              System.out.println("\nThis shouldn't have happened. Please report this error!\n[Error]: fileType did not meet conditional requirements during file writing.\nfileType = " + fileType);
-              return;
+                System.out.println("\nThis shouldn't have happened. Please report this error!\n[Error]: chapterHeadings did not meet conditional requirements while removing chapter headings.\nchapterHeadings = " + chapterHeadings);
+                // 'return' is unnecessary as the last statement in a 'void' method
             }
-            System.out.println("Done!");
         } catch (IOException e) {
             System.out.println("Error.");
             e.printStackTrace();
