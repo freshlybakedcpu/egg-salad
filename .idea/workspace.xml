@@ -24,6 +24,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f8f304bd-7e6c-4b62-9c54-5317063cbd7a" name="Default Changelist" comment="Updated version number, worked on regex to remove chapter headings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu/egg/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu/egg/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/github/freshlybakedcpu/egg/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/freshlybakedcpu/egg/Main.class" afterDir="false" />
     </list>
@@ -54,7 +55,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last.edited.regexp" value="fi. hey&#10;" />
+    <property name="last.edited.regexp" value="hey&quot;" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/io/github/freshlybakedcpu" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -276,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607585601160</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Set output json array name to camelcase">
+      <created>1607586608298</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1607586608298</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,6 +315,7 @@
     <MESSAGE value="Slight re-arrangement of code" />
     <MESSAGE value="Finished sentence splitter by chapter for txt" />
     <MESSAGE value="Finished chapter headings for json" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished chapter headings for json" />
+    <MESSAGE value="Set output json array name to camelcase" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set output json array name to camelcase" />
   </component>
 </project>

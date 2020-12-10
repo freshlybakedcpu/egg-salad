@@ -69,13 +69,22 @@ public class Main {
                 // Great Expectations: "Chapter I. "
                 content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", chapterCode);
 
-                // A Tale of Two Cities: "I. "
+                // A Tale of Two Cities: "I. [chapter name]"
                 // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", chapterCode);
 
                 // War and Peace: "CHAPTER I  "
-                // content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", chapterCode);
+                // Note: Book headings (e.g. BOOK TWO: 1805) also need to be removed.
+                content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", chapterCode);
 
+                // Replaces all normal quotes with curly quotes
+                System.out.println("Replacing all straight quotes...");
+                content = content.replaceAll("\"\\S", "“").replaceAll("\\S\"", "”");
+
+                // 1984: Chapter 1
+                // Note: Part headings (e.g.  PART ONE) also need to be removed
                 System.out.println("\nSeparating text by chapter...");
+                content = content.replaceAll("Chapter\\s^[0-9]+$\\R", chapterCode);
+
                 String[] textByChapter = content.split(chapterCode);
 
                 // Loads sentence detector model
@@ -156,10 +165,19 @@ public class Main {
                 // War and Peace: "CHAPTER I  "
                 content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", "");
 
+                // 1984: Chapter 1
+                // Note: Part headings (e.g.  PART ONE) also need to be removed
+                System.out.println("\nSeparating text by chapter...");
+                content = content.replaceAll("Chapter\\s[0-9]+\\R", "");
+
                 // Removes all newline characters.
                 System.out.println("Removing all newline characters...");
                 content = content.replace("\r\n", " ").replace("\n", " ");
                 content = content.trim().replaceAll("\\s+", " "); // Ensures there are no duplicate newline characters.
+
+                // Replaces all normal quotes with curly quotes
+                System.out.println("Replacing all straight quotes...");
+                content = content.replaceAll("\"\\S", "“").replaceAll("\\S\"", "”");
 
                 // Loads sentence detector model
                 System.out.println("Loading sentence detector model...");
