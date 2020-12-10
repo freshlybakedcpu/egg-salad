@@ -4,7 +4,8 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.charset.*;
 import java.util.*;
-import java.util.regex.*;
+
+import com.google.common.base.CaseFormat;
 
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
@@ -100,7 +101,7 @@ public class Main {
                 }
 
                 System.out.println("Writing to file...");
-                FileWriter writer = new FileWriter(String.format("output/%s_en-sent.%s", inputFile.getName().replaceAll("[.]txt", ""), fileType));
+                FileWriter writer = new FileWriter(String.format("output/%s_chapterHeaders_en-sent.%s", inputFile.getName().replaceAll("[.]txt", ""), fileType));
                 if(fileType.equals("txt")) {
                     for(int i = 0; i < sentences.length; i++) {
                         System.out.println("\tChapter " + (i+1) + "...");
@@ -118,7 +119,8 @@ public class Main {
                 }
                 else if(fileType.equals("json")) {
                     writer.write("{\n");
-                    writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": {\n");
+                    String arrayName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, inputFile.getName().replaceAll("[.]txt", ""));
+                    writer.write("\t\"" + arrayName + "\": {\n");
                     boolean firstTime = true;
                     for (int i = 0; i < sentences.length; i++) {
                         System.out.println("\tChapter " + (i + 1) + "...");
@@ -181,7 +183,8 @@ public class Main {
                 }
                 else if(fileType.equals("json")) {
                     writer.write("{\n");
-                    writer.write("\t\"" + inputFile.getName().replaceAll("[.]txt", "") + "\": [\n");
+                    String arrayName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, inputFile.getName().replaceAll("[.]txt", ""));
+                    writer.write("\t\"" + arrayName + "\": [\n");
                     boolean firstTime = true;
                     for (String s : sentences) {
                         if(firstTime) {

@@ -269,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607584327488</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Finished chapter headings for json">
+      <created>1607585601160</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1607585601160</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,6 +306,7 @@
     <MESSAGE value="Added function to remove duplicate whitespace, finished regex for GE and WaP" />
     <MESSAGE value="Slight re-arrangement of code" />
     <MESSAGE value="Finished sentence splitter by chapter for txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished sentence splitter by chapter for txt" />
+    <MESSAGE value="Finished chapter headings for json" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished chapter headings for json" />
   </component>
 </project>
