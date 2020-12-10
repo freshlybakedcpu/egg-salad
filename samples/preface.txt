@@ -1,7 +1,7 @@
 preface
 PREFACe
 PrEfAcE
-not preface
+notpreface
 PREFACE
 Preface
 pReFaCe
