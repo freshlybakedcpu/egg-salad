@@ -61,30 +61,41 @@ public class Main {
         try {
             // Turns file into String
             String content = readFile(inputFile.getPath(), StandardCharsets.UTF_8);
+            
+            // Removes underscores
+            System.out.println("\nRemoving underscores...");
+            content.replace("_", "");
 
             // Removes chapter headers
-            System.out.println("\nRemoving chapter headers...");
+            System.out.println("Removing chapter headers...");
             // Roman numeral regex: (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])
             if (chapterHeadings.matches("y")) {
                 // Great Expectations: "Chapter I. "
-                content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])[.]\\R", chapterCode);
+                content = content.replaceAll("Chapter (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\.\\R", chapterCode);
 
                 // A Tale of Two Cities: "I. [chapter name]"
-                // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])([.]\\s+.+\\R)", chapterCode);
+                // content = content.replaceAll("(?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])(\\.\\s+.+\\R)", chapterCode);
 
                 // War and Peace: "CHAPTER I  "
                 // Note: Book headings (e.g. BOOK TWO: 1805) also need to be removed.
                 content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\R", chapterCode);
+                
+                // 1984: Chapter 1
+                // Note: Part headings (e.g.  PART ONE) also need to be removed
+                content = content.replaceAll("Chapter\\s[0-9]+\\R", chapterCode);
+                
+                // machievelli: "CHAPTER XII.--That it is of much moment to make account of Religion; and that Italy, through the Roman Church, being wanting therein, has been ruined."
+                content = content.replaceAll("CHAPTER (?<![A-Z])(M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))(?![A-Z])\\.--.+\\.\\R", chapterCode);
+                
+                // Removes footnotes
+                System.out.println("Removing footnotes...");
+                // machievelli: "[Footnote 1: L'umana probitate: e questo vuole Quei che la dà, perchè da lui si chiami._Purg_. vii. 121-123.]"
+                content = content.replaceAll("\\[Footnote\\s[0-9]+\\s.+\\]\\R", chapterCode);
 
                 // Replaces all normal quotes with curly quotes
                 System.out.println("Replacing all straight quotes...");
                 content = content.replaceAll("\"\\S", "“").replaceAll("\\S\"", "”");
-
-                // 1984: Chapter 1
-                // Note: Part headings (e.g.  PART ONE) also need to be removed
-                System.out.println("\nSeparating text by chapter...");
-                content = content.replaceAll("Chapter\\s^[0-9]+$\\R", chapterCode);
-
+                
                 String[] textByChapter = content.split(chapterCode);
 
                 // Loads sentence detector model
@@ -167,7 +178,6 @@ public class Main {
 
                 // 1984: Chapter 1
                 // Note: Part headings (e.g.  PART ONE) also need to be removed
-                System.out.println("\nSeparating text by chapter...");
                 content = content.replaceAll("Chapter\\s[0-9]+\\R", "");
 
                 // Removes all newline characters.
